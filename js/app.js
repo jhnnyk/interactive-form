@@ -1,12 +1,15 @@
 var nameField = document.getElementById('name');
 var otherJobRole = document.getElementById('other-title');
 var selectJobRole = document.getElementById('title');
+var tshirtThemeSelect = document.getElementById('design');
+var tshirtColorSelect = document.getElementById('colors-js-puns');
 
-//  set focus on first text field when the page loads
+//  1. set focus on first text field when the page loads
 nameField.focus();
 
-//  hide "Other Job Role" text field unless "Other"
-//  is selected from the "Job Role" drop down menu
+
+//  2. hide "Other Job Role" text field unless "Other"
+//     is selected from the "Job Role" drop down menu
 otherJobRole.style.display = "none";
 
 var showOtherJobRoleField = function() {
@@ -18,3 +21,65 @@ var showOtherJobRoleField = function() {
 }
 
 selectJobRole.addEventListener("change", showOtherJobRoleField)
+
+
+//  3. hide "Color" drop down menu until a T-Shirt design is selected
+//     and only show the color options that match the design selected
+tshirtColorSelect.style.display = "none";
+
+var showTShirtColors = function() {
+  var options = document.querySelectorAll('#color option');
+  var first = true;
+
+  //  if the theme selected is 'JS Puns' then only show the JS Puns colors
+  if (tshirtThemeSelect.value === 'js puns') {
+    
+    for (var i = 0; i < options.length; i++) {
+      if (options[i].innerHTML.includes('Puns shirt')) {
+        // show the JS Puns shirt colors
+        options[i].style.display = "initial";
+        // automatically select the first option so that the user doesn't 
+        //   ever see any of the wrong colors
+        if (first) {
+          options[i].selected = true;
+          first = false;
+        }
+      } else {
+        // hide the other colors
+        options[i].style.display = "none";
+      }
+    }
+    
+    // show the drop down
+    tshirtColorSelect.style.display = "initial";
+
+  //  if the theme selected is 'I heart JS' then only show the I heart JS colors
+  } else if (tshirtThemeSelect.value === 'heart js') {
+    
+    for (var i = 0; i < options.length; i++) {
+      if (options[i].innerHTML.includes('JS shirt')) {
+        // show the I heart JS colors
+        options[i].style.display = "initial";
+        // automatically select the first option so that the user doesn't 
+        //   ever see any of the wrong colors
+        if (first) {
+          options[i].selected = true;
+          first = false;
+        }
+      } else {
+        // hide the other colors
+        options[i].style.display = "none";
+      }
+    }
+
+    // show the drop down
+    tshirtColorSelect.style.display = "initial";
+  } else {
+    // if the user doesn't select either t-shirt design
+    //  hide the color choices
+    tshirtColorSelect.style.display = "none";
+  }
+}
+
+tshirtThemeSelect.addEventListener("change", showTShirtColors);
+
