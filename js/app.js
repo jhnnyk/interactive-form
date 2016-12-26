@@ -3,6 +3,8 @@ var otherJobRole = document.getElementById('other-title');
 var selectJobRole = document.getElementById('title');
 var tshirtThemeSelect = document.getElementById('design');
 var tshirtColorSelect = document.getElementById('colors-js-puns');
+var activities = document.querySelectorAll('.activities input');
+var totalCost = 0;
 
 //  1. set focus on first text field when the page loads
 nameField.focus();
@@ -82,4 +84,31 @@ var showTShirtColors = function() {
 }
 
 tshirtThemeSelect.addEventListener("change", showTShirtColors);
+
+
+// 4. Register for Activities
+
+var regForActivities = function() {
+  // if we're checking the box
+  if (this.checked) {
+    if (this.name === "all") {
+      totalCost += 200;
+    } else {
+      totalCost += 100;
+    }
+  } else { // else we're unchecking the box
+    if (this.name === "all") {
+      totalCost -= 200;
+    } else {
+      totalCost -= 100;
+    }
+  }
+
+  console.log(totalCost);
+}
+
+// attach an event listener for each checkbox
+for (var i = 0; i < activities.length; i ++) {
+  activities[i].addEventListener("click", regForActivities);
+}
 
