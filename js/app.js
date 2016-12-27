@@ -88,6 +88,25 @@ tshirtThemeSelect.addEventListener("change", showTShirtColors);
 
 // 4. Register for Activities
 
+//    function that disables workshops with conflicting schedules
+var disableWorkshop = function (workshopName) {
+  var conflictingWS = document.querySelector('input[name=' + workshopName + ']');
+  conflictingWS.disabled = true;
+  conflictingWS.parentElement.classList.add("disabled");
+}
+
+//    function that enables workshops
+//      called when workshops with conflicting schedules are deselected
+var enableWorkshop = function (workshopName) {
+  var conflictingWS = document.querySelector('input[name=' + workshopName + ']');
+  conflictingWS.disabled = false;
+  conflictingWS.parentElement.classList.remove("disabled");
+}
+
+//    main Register for activities function
+//      calculates totalCost and
+//      prevents conflicting workshops from being scheduled by
+//          calling disableWorkshop and enableWorkshop functions
 var regForActivities = function() {
   // if we're checking the box
   if (this.checked) {
@@ -95,6 +114,22 @@ var regForActivities = function() {
     switch (this.name) {
       case 'all':
         totalCost += 200;
+        break;
+      case 'js-frameworks':
+        totalCost += 100;
+        disableWorkshop('express');
+        break;
+      case 'js-libs':
+        totalCost += 100;
+        disableWorkshop('node');
+        break;
+      case 'express':
+        totalCost += 100;
+        disableWorkshop('js-frameworks');
+        break;
+      case 'node':
+        totalCost += 100;
+        disableWorkshop('js-libs');
         break;
       default:
         totalCost += 100;
@@ -106,6 +141,22 @@ var regForActivities = function() {
     switch (this.name) {
       case 'all':
         totalCost -= 200;
+        break;
+      case 'js-frameworks':
+        totalCost -= 100;
+        enableWorkshop('express');
+        break;
+      case 'js-libs':
+        totalCost -= 100;
+        enableWorkshop('node');
+        break
+      case 'express':
+        totalCost -= 100;
+        enableWorkshop('js-frameworks');
+        break;
+      case 'node':
+        totalCost -= 100;
+        enableWorkshop('js-libs');
         break;
       default:
         totalCost -= 100;
