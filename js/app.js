@@ -224,6 +224,7 @@ paymentSelect.addEventListener("change", showPaymentMethod);
 
 // ---------------------
 // 6. Form Validation
+
 var clearErrors = function() {
   //    clear error messages
   var errorMessages = document.querySelectorAll('span.error');
@@ -241,7 +242,7 @@ var displayError = function(field) {
   field.classList.add("error");
   var errorSpan = document.createElement("span");
   errorSpan.classList.add("error");
-  errorSpan.append("can't be blank");
+  errorSpan.append("please enter a valid " + field.id);
   field.before(errorSpan);
 }
 
