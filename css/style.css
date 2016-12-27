@@ -195,4 +195,11 @@ button:hover {
 	text-decoration: underline;
 }
 
+input.error {
+	border: 2px solid red;
+}
+
+span.error {
+	color: red;
+}
 

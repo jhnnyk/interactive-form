@@ -1,4 +1,5 @@
 var nameField = document.getElementById('name');
+var emailField = document.getElementById('mail');
 var otherJobRole = document.getElementById('other-title');
 var selectJobRole = document.getElementById('title');
 var tshirtThemeSelect = document.getElementById('design');
@@ -13,6 +14,7 @@ var ccPaymentSection = document.getElementById("credit-card");
 var paypalPaymentSection = document.getElementById("paypal");
 var bitcoinPaymentSection = document.getElementById("bitcoin");
 var ccPaymentOption = document.querySelector('#payment option[value="credit card"]');
+var submitButton = document.querySelector('button[type="submit"]');
 
 // set up HTML to display totalCost
 priceP.append("Total cost: ");
@@ -219,6 +221,53 @@ var showPaymentMethod = function() {
 
 paymentSelect.addEventListener("change", showPaymentMethod);
 
+
+// ---------------------
+// 6. Form Validation
+var clearErrors = function() {
+  //    clear error messages
+  var errorMessages = document.querySelectorAll('span.error');
+  for (var i = 0; i < errorMessages.length; i++) {
+    errorMessages[i].remove();
+  }
+  //    clear notifications on fields with errors
+  var errorFields = document.querySelectorAll('input.error');
+  for (var i = 0; i < errorFields.length; i++) {
+    errorFields[i].classList.remove("error");
+  }
+}
+
+var displayError = function(field) {
+  field.classList.add("error");
+  var errorSpan = document.createElement("span");
+  errorSpan.classList.add("error");
+  errorSpan.append("can't be blank");
+  field.before(errorSpan);
+}
+
+var validateEmail = function(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+
+var validateForm = function(e) {
+  // clear past errors before revalidating
+  clearErrors();
+
+  // name can't be blank
+  if (nameField.value === "") {
+    e.preventDefault();
+    displayError(nameField);
+  }
+
+  // must have a validly formatted email address
+  if (!validateEmail(emailField.value)) {
+    e.preventDefault();
+    displayError(emailField);
+  }
+}
+
+submitButton.addEventListener("click", validateForm);
 
 
 
