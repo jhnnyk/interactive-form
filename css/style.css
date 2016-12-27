@@ -181,10 +181,18 @@ button:hover {
 }
 
 /* ================================= 
-  Error Styles
+  Error Styles added by John Knotts
 ==================================== */
 
 .disabled {
 	color: #888;
 }
+
+.activities p {
+	text-align: right;
+	color: #000;
+	font-size: 1.2em;
+	text-decoration: underline;
+}
+
 
