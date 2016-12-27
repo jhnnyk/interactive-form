@@ -103,6 +103,15 @@ var enableWorkshop = function (workshopName) {
   conflictingWS.parentElement.classList.remove("disabled");
 }
 
+//    function to display totalCost
+var displayCost = function(totalCost) {
+  var activitiesFieldset = document.querySelector('.activities');
+  var html = document.createElement("p");
+  html.append("Total cost: $" + totalCost);
+  
+  activitiesFieldset.append(html);
+}
+
 //    main Register for activities function
 //      calculates totalCost and
 //      prevents conflicting workshops from being scheduled by
@@ -163,7 +172,7 @@ var regForActivities = function() {
     }
   }
 
-  console.log(totalCost);
+  displayCost(totalCost);
 }
 
 // attach an event listener for each checkbox
