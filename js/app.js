@@ -5,6 +5,15 @@ var tshirtThemeSelect = document.getElementById('design');
 var tshirtColorSelect = document.getElementById('colors-js-puns');
 var activities = document.querySelectorAll('.activities input');
 var totalCost = 0;
+var activitiesFieldset = document.querySelector('.activities');
+var priceP = document.createElement("p");
+var priceSpan = document.createElement("span");
+// set up HTML to display totalCost
+priceP.append("Total cost: ");
+priceSpan.append("$" + totalCost);
+priceP.append(priceSpan);
+activitiesFieldset.append(priceP);
+
 
 //  1. set focus on first text field when the page loads
 nameField.focus();
@@ -103,14 +112,6 @@ var enableWorkshop = function (workshopName) {
   conflictingWS.parentElement.classList.remove("disabled");
 }
 
-//    function to display totalCost
-var displayCost = function(totalCost) {
-  var activitiesFieldset = document.querySelector('.activities');
-  var html = document.createElement("p");
-  html.append("Total cost: $" + totalCost);
-  
-  activitiesFieldset.append(html);
-}
 
 //    main Register for activities function
 //      calculates totalCost and
@@ -172,11 +173,14 @@ var regForActivities = function() {
     }
   }
 
-  displayCost(totalCost);
+  // update totalCost display
+  priceSpan.innerText = "$" + totalCost;
 }
 
 // attach an event listener for each checkbox
 for (var i = 0; i < activities.length; i ++) {
   activities[i].addEventListener("click", regForActivities);
 }
+
+
 
