@@ -8,6 +8,12 @@ var totalCost = 0;
 var activitiesFieldset = document.querySelector('.activities');
 var priceP = document.createElement("p");
 var priceSpan = document.createElement("span");
+var paymentSelect = document.getElementById("payment");
+var ccPaymentSection = document.getElementById("credit-card");
+var paypalPaymentSection = document.getElementById("paypal");
+var bitcoinPaymentSection = document.getElementById("bitcoin");
+var ccPaymentOption = document.querySelector('#payment option[value="credit card"]');
+
 // set up HTML to display totalCost
 priceP.append("Total cost: ");
 priceSpan.append("$" + totalCost);
@@ -15,10 +21,12 @@ priceP.append(priceSpan);
 activitiesFieldset.append(priceP);
 
 
+// ---------------------
 //  1. set focus on first text field when the page loads
 nameField.focus();
 
 
+// ---------------------
 //  2. hide "Other Job Role" text field unless "Other"
 //     is selected from the "Job Role" drop down menu
 otherJobRole.style.display = "none";
@@ -34,6 +42,7 @@ var showOtherJobRoleField = function() {
 selectJobRole.addEventListener("change", showOtherJobRoleField)
 
 
+// ---------------------
 //  3. hide "Color" drop down menu until a T-Shirt design is selected
 //     and only show the color options that match the design selected
 tshirtColorSelect.style.display = "none";
@@ -95,6 +104,7 @@ var showTShirtColors = function() {
 tshirtThemeSelect.addEventListener("change", showTShirtColors);
 
 
+// ---------------------
 // 4. Register for Activities
 
 //    function that disables workshops with conflicting schedules
@@ -181,6 +191,35 @@ var regForActivities = function() {
 for (var i = 0; i < activities.length; i ++) {
   activities[i].addEventListener("click", regForActivities);
 }
+
+// ---------------------
+// 5. Payment Info section
+//    "Credit Card" payment option should be selected by default
+ccPaymentOption.selected = true;
+
+//    initally hide the Paypal and Bitcoin payment methods
+paypalPaymentSection.style.display = "none";
+bitcoinPaymentSection.style.display = "none";
+
+var showPaymentMethod = function() {
+  //    hide all the payment sections
+  ccPaymentSection.style.display = "none";
+  paypalPaymentSection.style.display = "none";
+  bitcoinPaymentSection.style.display = "none";
+
+  //    then show the selected payment section
+  if (paymentSelect.value === 'credit card') {
+    ccPaymentSection.style.display = "block";
+  } else if (paymentSelect.value === 'paypal') {
+    paypalPaymentSection.style.display = 'initial';
+  } else {
+    bitcoinPaymentSection.style.display = 'initial';
+  }
+}
+
+paymentSelect.addEventListener("change", showPaymentMethod);
+
+
 
 
 
