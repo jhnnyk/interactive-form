@@ -91,16 +91,24 @@ tshirtThemeSelect.addEventListener("change", showTShirtColors);
 var regForActivities = function() {
   // if we're checking the box
   if (this.checked) {
-    if (this.name === "all") {
-      totalCost += 200;
-    } else {
-      totalCost += 100;
+
+    switch (this.name) {
+      case 'all':
+        totalCost += 200;
+        break;
+      default:
+        totalCost += 100;
     }
-  } else { // else we're unchecking the box
-    if (this.name === "all") {
-      totalCost -= 200;
-    } else {
-      totalCost -= 100;
+
+  // else we're unchecking the box
+  } else {
+
+    switch (this.name) {
+      case 'all':
+        totalCost -= 200;
+        break;
+      default:
+        totalCost -= 100;
     }
   }
 
