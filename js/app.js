@@ -267,6 +267,16 @@ var validateCCNum = function(number) {
   return re.test(number);
 }
 
+var validateZipCode = function(number) {
+  var re = /^[0-9]{5}$/;
+  return re.test(number);
+}
+
+var validateCVV = function(number) {
+  var re = /^[0-9]{3}$/;
+  return re.test(number);
+}
+
 var validateForm = function(e) {
   // clear past errors before revalidating
   clearErrors();
@@ -315,18 +325,26 @@ var validateForm = function(e) {
     if (zipCode.value === "") {
       e.preventDefault();
       displayError(zipCode, "Zip Code cannot be blank");
+    } else {
+      //  zip code must be a 5 digit number
+      if (!validateZipCode(zipCode.value)) {
+        e.preventDefault();
+        displayError(zipCode, "Zip Code must be a 5 digit number");
+      }
     }
 
     //  CVV can't be empty
     if (CVV.value === "") {
       e.preventDefault();
       displayError(CVV, "Please enter the CVV code on the back of your card");
+    } else {
+      //  CVV must be a 3 digit number
+      if (!validateCVV(CVV.value)) {
+        e.preventDefault();
+        displayError(CVV, "CVV must be a 3 digit number");
+      }
     }
 
-    //  zip code must be a 5 digit number
-
-
-    //  CVV must be a 3 digit number
   }
 }
 
