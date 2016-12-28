@@ -351,5 +351,21 @@ var validateForm = function(e) {
 submitButton.addEventListener("click", validateForm);
 
 
+// Extra credit: live validation for credit card number
+var liveValidateCCNum = function(number) {
+  // remove previous error messages
+  if (this.previousElementSibling.classList.contains("error")) {
+    this.previousElementSibling.remove();
+    this.classList.remove("error");
+  }
+
+  // show errors if credit card number is not valid
+  if (!validateCCNum(ccNumber.value)) {
+    displayError(ccNumber, "Credit card number must be a 13-16 digit number");
+  }
+}
+
+ccNumber.addEventListener("keyup", liveValidateCCNum);
+
 
 
