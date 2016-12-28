@@ -195,7 +195,8 @@ button:hover {
 	text-decoration: underline;
 }
 
-input.error {
+input.error,
+fieldset.error legend {
 	border: 2px solid red;
 }
 

@@ -231,11 +231,15 @@ var clearErrors = function() {
   for (var i = 0; i < errorMessages.length; i++) {
     errorMessages[i].remove();
   }
+
   //    clear notifications on fields with errors
   var errorFields = document.querySelectorAll('input.error');
   for (var i = 0; i < errorFields.length; i++) {
     errorFields[i].classList.remove("error");
   }
+
+  //    clear fieldset errors
+  activitiesFieldset.classList.remove("error");
 }
 
 var displayError = function(field) {
