@@ -242,11 +242,11 @@ var clearErrors = function() {
   activitiesFieldset.classList.remove("error");
 }
 
-var displayError = function(field) {
+var displayError = function(field, message) {
   field.classList.add("error");
   var errorSpan = document.createElement("span");
   errorSpan.classList.add("error");
-  errorSpan.append("please enter a valid " + field.id);
+  errorSpan.append(message);
   field.before(errorSpan);
 }
 
@@ -266,13 +266,13 @@ var validateForm = function(e) {
   // name can't be blank
   if (nameField.value === "") {
     e.preventDefault();
-    displayError(nameField);
+    displayError(nameField, "Please enter your name");
   }
 
   // must have a validly formatted email address
   if (!validateEmail(emailField.value)) {
     e.preventDefault();
-    displayError(emailField);
+    displayError(emailField, "Please enter a valid email address");
   }
 
   // must select at least one activity
@@ -286,6 +286,9 @@ var validateForm = function(e) {
     e.preventDefault();
     displayFieldsetError(activitiesFieldset);
   }
+
+  // credit card must be a number between 13-16 digits
+
 }
 
 submitButton.addEventListener("click", validateForm);
