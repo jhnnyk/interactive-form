@@ -210,3 +210,7 @@ fieldset.error legend::after {
 	font-size: .8em;
 }
 
+label[for="exp-month"] {
+	clear: left;
+}
+

@@ -14,6 +14,9 @@ var ccPaymentSection = document.getElementById("credit-card");
 var paypalPaymentSection = document.getElementById("paypal");
 var bitcoinPaymentSection = document.getElementById("bitcoin");
 var ccPaymentOption = document.querySelector('#payment option[value="credit card"]');
+var ccNumber = document.getElementById('cc-num');
+var zipCode = document.getElementById('zip');
+var CVV = document.getElementById('cvv');
 var submitButton = document.querySelector('button[type="submit"]');
 
 // set up HTML to display totalCost
@@ -259,6 +262,11 @@ var validateEmail = function(email) {
   return re.test(email);
 }
 
+var validateCCNum = function(number) {
+  var re = /^[0-9]{13,16}$/;
+  return re.test(number);
+}
+
 var validateForm = function(e) {
   // clear past errors before revalidating
   clearErrors();
@@ -266,7 +274,7 @@ var validateForm = function(e) {
   // name can't be blank
   if (nameField.value === "") {
     e.preventDefault();
-    displayError(nameField, "Please enter your name");
+    displayError(nameField, "Name cannot be blank");
   }
 
   // must have a validly formatted email address
@@ -287,8 +295,39 @@ var validateForm = function(e) {
     displayFieldsetError(activitiesFieldset);
   }
 
-  // credit card must be a number between 13-16 digits
+  // Credit Card validation
+  //    only validate if bitcoin or paypal is selected
+  if (paymentSelect.value === 'credit card') {
 
+    //  credit card number can't be empty
+    if (ccNumber.value === "") {
+      e.preventDefault();
+      displayError(ccNumber, "Credit card number cannot be blank");
+    } else {
+      //  credit card must be a number between 13-16 digits
+      if (!validateCCNum(ccNumber.value)) {
+        e.preventDefault();
+        displayError(ccNumber, "Credit card number must be a 13-16 digit number");
+      }
+    }
+
+    //  zip code can't be empty
+    if (zipCode.value === "") {
+      e.preventDefault();
+      displayError(zipCode, "Zip Code cannot be blank");
+    }
+
+    //  CVV can't be empty
+    if (CVV.value === "") {
+      e.preventDefault();
+      displayError(CVV, "Please enter the CVV code on the back of your card");
+    }
+
+    //  zip code must be a 5 digit number
+
+
+    //  CVV must be a 3 digit number
+  }
 }
 
 submitButton.addEventListener("click", validateForm);
