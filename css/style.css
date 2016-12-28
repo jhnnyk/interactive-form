@@ -203,3 +203,9 @@ span.error {
 	color: red;
 }
 
+fieldset.error legend::after {
+	color: red;
+	content: ' - Please select one';
+	font-size: .8em;
+}
+

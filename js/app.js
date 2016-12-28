@@ -246,6 +246,10 @@ var displayError = function(field) {
   field.before(errorSpan);
 }
 
+var displayFieldsetError = function(fieldset) {
+  fieldset.classList.add("error");
+}
+
 var validateEmail = function(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
@@ -265,6 +269,18 @@ var validateForm = function(e) {
   if (!validateEmail(emailField.value)) {
     e.preventDefault();
     displayError(emailField);
+  }
+
+  // must select at least one activity
+  var activityCount = 0;
+  for (var i = 0; i < activities.length; i++) {
+    if (activities[i].checked) {
+      activityCount++;
+    }
+  }
+  if (activityCount === 0) {
+    e.preventDefault();
+    displayFieldsetError(activitiesFieldset);
   }
 }
 
