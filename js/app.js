@@ -1,3 +1,5 @@
+"use strict";
+
 var nameField = document.getElementById('name');
 var emailField = document.getElementById('mail');
 var otherJobRole = document.getElementById('other-title');
@@ -42,9 +44,9 @@ var showOtherJobRoleField = function() {
   } else {
     otherJobRole.style.display = "none";
   }
-}
+};
 
-selectJobRole.addEventListener("change", showOtherJobRoleField)
+selectJobRole.addEventListener("change", showOtherJobRoleField);
 
 
 // ---------------------
@@ -81,19 +83,19 @@ var showTShirtColors = function() {
   //  if the theme selected is 'I heart JS' then only show the I heart JS colors
   } else if (tshirtThemeSelect.value === 'heart js') {
     
-    for (var i = 0; i < options.length; i++) {
-      if (options[i].innerHTML.includes('JS shirt')) {
+    for (var j = 0; j < options.length; j++) {
+      if (options[j].innerHTML.includes('JS shirt')) {
         // show the I heart JS colors
-        options[i].style.display = "initial";
+        options[j].style.display = "initial";
         // automatically select the first option so that the user doesn't 
         //   ever see any of the wrong colors
         if (first) {
-          options[i].selected = true;
+          options[j].selected = true;
           first = false;
         }
       } else {
         // hide the other colors
-        options[i].style.display = "none";
+        options[j].style.display = "none";
       }
     }
 
@@ -104,7 +106,7 @@ var showTShirtColors = function() {
     //  hide the color choices
     tshirtColorSelect.style.display = "none";
   }
-}
+};
 
 tshirtThemeSelect.addEventListener("change", showTShirtColors);
 
@@ -117,7 +119,7 @@ var disableWorkshop = function (workshopName) {
   var conflictingWS = document.querySelector('input[name=' + workshopName + ']');
   conflictingWS.disabled = true;
   conflictingWS.parentElement.classList.add("disabled");
-}
+};
 
 //    function that enables workshops
 //      called when workshops with conflicting schedules are deselected
@@ -125,7 +127,7 @@ var enableWorkshop = function (workshopName) {
   var conflictingWS = document.querySelector('input[name=' + workshopName + ']');
   conflictingWS.disabled = false;
   conflictingWS.parentElement.classList.remove("disabled");
-}
+};
 
 
 //    main Register for activities function
@@ -174,7 +176,7 @@ var regForActivities = function() {
       case 'js-libs':
         totalCost -= 100;
         enableWorkshop('node');
-        break
+        break;
       case 'express':
         totalCost -= 100;
         enableWorkshop('js-frameworks');
@@ -190,7 +192,7 @@ var regForActivities = function() {
 
   // update totalCost display
   priceSpan.innerText = "$" + totalCost;
-}
+};
 
 // attach an event listener for each checkbox
 for (var i = 0; i < activities.length; i ++) {
@@ -220,7 +222,7 @@ var showPaymentMethod = function() {
   } else {
     bitcoinPaymentSection.style.display = 'initial';
   }
-}
+};
 
 paymentSelect.addEventListener("change", showPaymentMethod);
 
@@ -237,13 +239,13 @@ var clearErrors = function() {
 
   //    clear notifications on fields with errors
   var errorFields = document.querySelectorAll('input.error');
-  for (var i = 0; i < errorFields.length; i++) {
-    errorFields[i].classList.remove("error");
+  for (var j = 0; j < errorFields.length; j++) {
+    errorFields[j].classList.remove("error");
   }
 
   //    clear fieldset errors
   activitiesFieldset.classList.remove("error");
-}
+};
 
 var displayError = function(field, message) {
   field.classList.add("error");
@@ -251,31 +253,31 @@ var displayError = function(field, message) {
   errorSpan.classList.add("error");
   errorSpan.append(message);
   field.before(errorSpan);
-}
+};
 
 var displayFieldsetError = function(fieldset) {
   fieldset.classList.add("error");
-}
+};
 
 var validateEmail = function(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
-}
+};
 
 var validateCCNum = function(number) {
   var re = /^[0-9]{13,16}$/;
   return re.test(number);
-}
+};
 
 var validateZipCode = function(number) {
   var re = /^[0-9]{5}$/;
   return re.test(number);
-}
+};
 
 var validateCVV = function(number) {
   var re = /^[0-9]{3}$/;
   return re.test(number);
-}
+};
 
 var validateForm = function(e) {
   // clear past errors before revalidating
@@ -346,13 +348,13 @@ var validateForm = function(e) {
     }
 
   }
-}
+};
 
 submitButton.addEventListener("click", validateForm);
 
 
 // Extra credit: live validation for credit card number
-var liveValidateCCNum = function(number) {
+var liveValidateCCNum = function() {
   // remove previous error messages
   if (this.previousElementSibling.classList.contains("error")) {
     this.previousElementSibling.remove();
@@ -363,7 +365,7 @@ var liveValidateCCNum = function(number) {
   if (!validateCCNum(ccNumber.value)) {
     displayError(ccNumber, "Credit card number must be a 13-16 digit number");
   }
-}
+};
 
 ccNumber.addEventListener("keyup", liveValidateCCNum);
 
